@@ -160,7 +160,10 @@ func (s *Status) Details() []any {
 			details = append(details, err)
 			continue
 		}
-		details = append(details, detail)
+		// TODO: hot fix for https://github.com/grpc/grpc-go/issues/7679
+		// https://github.com/grpc/grpc-go/pull/7724/files?file-filters%5B%5D=.go&show-viewed-files=true&show-deleted-files=false
+		// details = append(details, detail)
+		details = append(details, protoadapt.MessageV1Of(detail))
 	}
 	return details
 }
